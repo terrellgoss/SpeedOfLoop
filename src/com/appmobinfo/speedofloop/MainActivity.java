@@ -1,7 +1,9 @@
 package com.appmobinfo.speedofloop;
 import java.util.Calendar;
+
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener {
 	TextView tvOut;
+	private static final String TAG = "ResLogs";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,53 +60,64 @@ public class MainActivity extends Activity implements OnClickListener {
     	long s;
     	String strOut = "";
     	
-		int size = 5_000_000;
+		int size = 300_000;
 		
 		int[] arrNums = new int[size];
 
 		for(int i=0; i < size; i++)
         {
-			arrNums[i] = i;
+			arrNums[i] = 1;
         }
 
+		for(int r=0; r < 2500; r++)
+        {
 
-		s = 0;
-		timeStart = Calendar.getInstance().getTimeInMillis();
-		for(int i : arrNums) s+=arrNums[i];
-		timeEnd = Calendar.getInstance().getTimeInMillis();
-		strOut = strOut + "For short: " + (long)(timeEnd - timeStart) + " ms (s=" + s + ")\n";
+        strOut = "id="+r + "\n";;
 
 
 		s = 0;
 		timeStart = Calendar.getInstance().getTimeInMillis();
-		for(int i=0; i < size; i++) s+=arrNums[i];
-		timeEnd = Calendar.getInstance().getTimeInMillis();
-		strOut = strOut + "For standart: " + (long)(timeEnd - timeStart) + " ms (s=" + s + ")\n";
-
-
-		s = 0;
-		timeStart = Calendar.getInstance().getTimeInMillis();
-		int i = 0;
-		do {
-			s+=arrNums[i];
-		    i++;
-		} while (i < size);
-		timeEnd = Calendar.getInstance().getTimeInMillis();
-		strOut = strOut + "Do While: " + (long)(timeEnd - timeStart) + " ms (s=" + s + ")\n";
-
-
-		s = 0;
-		timeStart = Calendar.getInstance().getTimeInMillis();
-		i=0;
-		while (i < size) {
-			s+=arrNums[i];
-		    i++;
+		int iw=0;
+		while (iw < size) {
+			s+=arrNums[iw];
+		    iw++;
 		}
 		timeEnd = Calendar.getInstance().getTimeInMillis();
 		strOut = strOut + "While: " + (long)(timeEnd - timeStart) + " ms (s=" + s + ")\n";
 
+		
+		s = 0;
+		timeStart = Calendar.getInstance().getTimeInMillis();
+		for(int i_fa : arrNums) s+=arrNums[i_fa];
+		timeEnd = Calendar.getInstance().getTimeInMillis();
+		strOut = strOut + "For_array: " + (long)(timeEnd - timeStart) + " ms (s=" + s + ")\n";
 
-		tvOut.setText(strOut);	
+
+		s = 0;
+		timeStart = Calendar.getInstance().getTimeInMillis();
+		for(int i_f=0; i_f < size; i_f++) s+=arrNums[i_f];
+		timeEnd = Calendar.getInstance().getTimeInMillis();
+		strOut = strOut + "For_standart: " + (long)(timeEnd - timeStart) + " ms (s=" + s + ")\n";
+
+
+		s = 0;
+		timeStart = Calendar.getInstance().getTimeInMillis();
+		int idw = 0;
+		do {
+			s+=arrNums[idw];
+			idw++;
+		} while (idw < size);
+		timeEnd = Calendar.getInstance().getTimeInMillis();
+		strOut = strOut + "Do_While: " + (long)(timeEnd - timeStart) + " ms (s=" + s + ")\n";
+
+
+		tvOut.setText(strOut);
+		// Log.e(TAG, strOut);
+        }
+		
+		// tvOut.setText("+");
+
+
     }
 
 }
